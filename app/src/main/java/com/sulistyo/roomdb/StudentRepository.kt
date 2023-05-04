@@ -18,10 +18,11 @@ class StudentRepository(private val dao: StudentDao) {
 
     fun getAllStudentWithCourse(): LiveData<List<StudentWithCourse>> = dao.getAllStudentWithCourse()
 
-    suspend fun insertAllData() {
+    /*suspend fun insertAllData() {
         dao.insertStudent(InitialDataSource.getStudents())
         dao.insertUniversity(InitialDataSource.getUniversities())
         dao.insertCourse(InitialDataSource.getCourses())
         dao.insertCourseStudentCrossRef(InitialDataSource.getCourseStudentRelation())
-    }
+    }*/
+
 }

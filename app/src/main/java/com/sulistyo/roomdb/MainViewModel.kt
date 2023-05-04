@@ -11,9 +11,11 @@ import com.sulistyo.roomdb.database.UniversityAndStudent
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repo: StudentRepository) : ViewModel() {
+/*
     init {
         insertAllData()
     }
+*/
 
     fun getAllStudent(): LiveData<List<Student>> = repo.getAllStudent()
 
@@ -26,9 +28,11 @@ class MainViewModel(private val repo: StudentRepository) : ViewModel() {
     fun getAllStudentWithCourse(): LiveData<List<StudentWithCourse>> =
         repo.getAllStudentWithCourse()
 
+/*
     private fun insertAllData() = viewModelScope.launch {
         repo.insertAllData()
     }
+*/
 }
 
 class ViewModelFactory(private val repository: StudentRepository) : ViewModelProvider.Factory {
