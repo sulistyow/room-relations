@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.sulistyo.roomdb.adapter.StudentListAdapter
 import com.sulistyo.roomdb.adapter.StudentWithCourseAdapter
 import com.sulistyo.roomdb.adapter.UniversityAndStudentAdapter
 import com.sulistyo.roomdb.databinding.ActivityMainBinding
+import com.sulistyo.roomdb.helper.SortType
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,7 +60,36 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.action_sort -> {
+                showSortingPopupMenu()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showSortingOptionMenu(isShow: Boolean) {
+        val view = findViewById<View>(R.id.action_sort) ?: return
+        view.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    private fun showSortingPopupMenu() {
+        val view = findViewById<View>(R.id.action_sort) ?: return
+        PopupMenu(this, view).run {
+            menuInflater.inflate(R.menu.sort_menu, menu)
+
+            setOnMenuItemClickListener {
+                mainViewModel.changeSortType(
+                    when (it.itemId) {
+                        R.id.action_ascending -> SortType.ASCENDING
+                        R.id.action_descending -> SortType.DESCENDING
+                        else -> SortType.RANDOM
+                    }
+                )
+                true
+            }
+            show()
         }
     }
 

@@ -6,10 +6,15 @@ import com.sulistyo.roomdb.database.StudentAndUniversity
 import com.sulistyo.roomdb.database.StudentDao
 import com.sulistyo.roomdb.database.StudentWithCourse
 import com.sulistyo.roomdb.database.UniversityAndStudent
-import com.sulistyo.roomdb.helper.InitialDataSource
+import com.sulistyo.roomdb.helper.SortType
+import com.sulistyo.roomdb.helper.SortUtils
 
 class StudentRepository(private val dao: StudentDao) {
-    fun getAllStudent(): LiveData<List<Student>> = dao.getAllStudent()
+    fun getAllStudent(sortType: SortType): LiveData<List<Student>> {
+        val query = SortUtils.getSortedQuery(sortType)
+        return dao.getAllStudent(query)
+    }
+
     fun getAllStudentAndUniversity(): LiveData<List<StudentAndUniversity>> =
         dao.getAllStudentAndUniversity()
 
